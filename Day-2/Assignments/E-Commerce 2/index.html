@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-COMMERCE II</title>
+    <style>
+        body{
+            margin-top: 10px;
+            margin-left: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            
+        }
+        form{
+            display: grid;
+            grid-template-columns: repeat(1,210px);
+            grid-template-rows: repeat(7,35px);
+            /* gap: 5px; */
+            height: 272px;
+            width: 220px;
+            border: 1px solid blue;
+            border-radius: 5px;
+            align-items: center;
+        }
+        input{
+            margin-top: 20px;
+            margin-left: 10px;
+            border-radius: 3px;
+            border: 1px solid;
+        }
+        select{
+            margin-top: 20px;
+            margin-left: 10px;
+            border-radius: 3px;
+            border: 1px solid;
+            cursor: pointer;
+        }
+        #add{
+            margin-top: 30px;
+            margin-left: 10px;
+            border-radius: 5px;
+            border: 2px solid rgb(44, 79, 219);
+            background-color: aqua;
+            font-size: 17px;
+        }
+        #add:hover{
+            cursor: pointer;
+            background-color: rgb(0, 191, 255);
+        }
+        .products{
+            display:grid;
+            grid-template-columns: repeat(6,1fr);
+            grid-template-rows: repeat(auto, 100px);
+            gap:20px;
+            margin-top: 320px;
+            margin-left: -200px;
+            border: 1px;
+        }
+        img{
+            height:50%;
+            width:95%
+        }
+        #counter{
+            font-size: 25px;
+            margin-top: 280px;
+            margin-left: -200px;
+        }
+    </style>
+</head>
+<body>
+    <form>
+    <input type="text" id="name" placeholder="Product Name">
+    <input type="text" id="category" placeholder="Category">
+    <input type="text" id="image" placeholder="Image Url">
+    <input type="text" id="price" placeholder="Price">
+    <select name="gender" id="gender">
+        <option value="none">Gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+    </select>
+    <!-- <input type="text" id="sold" placeholder="Sold"> -->
+    <select name="sold" id="sold">
+        <option value="False">Default</option>
+        <option value="True">Sold Out</option>
+    </select>
+    <input type="submit" id="add">
+</form>
+<div id="counter"></div>
+<div class="products"></div>
+</body>
+</html>
+
+<script>
+let productArr=JSON.parse(localStorage.getItem("Products"))||[]
+
+function Product(n,c,i,p,g,s){
+this.Name=n;
+this.Category=c;
+this.ImageUrl=i;
+this.Price=p;
+this.Gender=g;
+this.Sold=s;
+}
+
+document.querySelector("form").addEventListener("submit",Products)
+function Products(elem){
+event.preventDefault();
+
+let Name=document.querySelector("#name").value;
+
+let Category=document.querySelector("#category").value;
+
+let ImageUrl=document.querySelector("#image").value;
+
+let Price =document.querySelector("#price").value;
+
+let Gender=document.querySelector("#gender").value;
+
+let Sold=document.querySelector("#sold").value;
+
+let p1= new Product(Name,Category,ImageUrl,Price,Gender,Sold)
+productArr.push(p1);
+console.log(productArr)
+localStorage.setItem("Products",JSON.stringify(productArr))
+}
+
+let  datapr =JSON.parse(localStorage.getItem("Products"))||[]
+
+let c=0
+datapr.map(function(el,index){
+   
+    let div=document.createElement("div")
+    let p=document.createElement("p")
+    let p1=document.createElement("p")
+    let img=document.createElement("img")
+    let but=document.createElement("button")
+    let but1=document.createElement("button")
+    but.innerText="sold";
+    but.style.color="white"
+    but.style.backgroundColor="green"
+    
+    but.setAttribute("id","sold")
+    but.addEventListener("click", function(){
+           soldout(el,index)
+    })
+    
+    but1.innerText="remove";
+    but1.setAttribute("id","remove")
+    but1.addEventListener("click", function(){
+       dataslice(el,index)
+    })
+    img.src=el.ImageUrl;
+    p.innerText=el.Name;
+    p1.innerText=el.Price;
+    
+    div.append(img,p,p1,but,but1)
+    document.querySelector(".products").append(div)
+    
+    c++
+   document.querySelector("#counter").innerText=`products in cart ${c}`
+    })
+
+function soldout(el,index){
+    event.preventDefault();
+   var soldi= document.querySelectorAll("#sold")
+   if(soldi[index].style.backgroundColor=="green"){
+     soldi[index].style.backgroundColor="red"
+       el.Sold=true;
+    
+   }
+   else if(soldi[index].style.backgroundColor=="red"){
+    soldi[index].style.backgroundColor="green"
+    el.Sold=false; 
+  
+   }
+}
+   
+function dataslice(el,index){
+datapr.splice(index,1)
+   
+   console.log(datapr)
+   localStorage.setItem("Products",JSON.stringify(datapr))
+   window.location.reload()
+}
+if(datapr.length==0){
+   document.querySelector("#counter").innerHTML=`<a href="productadd.html">Add Product First</a>`
+}
+
+</script>

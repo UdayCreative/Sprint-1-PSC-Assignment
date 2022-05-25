@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amar Akbar Anthony</title>
+</head>
+<body>
+    <h3>Amar Akbar Anthony</h3>
+</body>
+</html>
+
+<script>
+    let Amar={
+    City:"Goa",
+    Skill:["Singer"]
+}
+let Akbar={
+    City:"Mumbai",
+    Skill:["Chef"]
+}
+let Anthony={
+    City:"Kashmir",
+    Skill:["Magician"]
+}
+function allskill(skills){
+    this.Skill.push(skills)
+}
+allskill.call(Amar,Akbar.Skill[0])
+allskill.call(Amar,Anthony.Skill[0])
+allskill.call(Akbar,Amar.Skill[0])
+allskill.call(Akbar,Anthony.Skill[0])
+allskill.call(Anthony,Akbar.Skill[0])
+allskill.call(Anthony,Amar.Skill[0])
+console.log(Amar)
+console.log(Akbar)
+console.log(Anthony)
+</script>

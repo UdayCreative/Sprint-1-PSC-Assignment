@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-COMMERCE I</title>
+    <style>
+        body{
+            margin-top: 150px;
+            margin-left: 150px;
+            display: flex;
+            flex-wrap: wrap;
+            
+        }
+        form{
+            display: grid;
+            grid-template-columns: repeat(1,210px);
+            grid-template-rows: repeat(7,35px);
+            /* gap: 5px; */
+            height: 272px;
+            width: 220px;
+            border: 1px solid blue;
+            border-radius: 5px;
+            align-items: center;
+        }
+        input{
+            margin-top: 20px;
+            margin-left: 10px;
+            border-radius: 3px;
+            border: 1px solid;
+        }
+        select{
+            margin-top: 20px;
+            margin-left: 10px;
+            border-radius: 3px;
+            border: 1px solid;
+            cursor: pointer;
+        }
+        #add{
+            margin-top: 30px;
+            margin-left: 10px;
+            border-radius: 5px;
+            border: 2px solid rgb(44, 79, 219);
+            background-color: aqua;
+            font-size: 17px;
+        }
+        #add:hover{
+            cursor: pointer;
+            background-color: rgb(0, 191, 255);
+        }
+    </style>
+</head>
+<body>
+    <form>
+    <input type="text" id="name" placeholder="Product Name">
+    <input type="text" id="category" placeholder="Category">
+    <input type="text" id="image" placeholder="Image Url">
+    <input type="text" id="price" placeholder="Price">
+    <select name="gender" id="gender">
+        <option value="none">Gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+    </select>
+    <!-- <input type="text" id="sold" placeholder="Sold"> -->
+    <select name="sold" id="sold">
+        <option value="False">Default</option>
+        <option value="True">Sold Out</option>
+    </select>
+    <input type="submit" id="add">
+</form>
+</body>
+</html>
+
+<script>
+let productArr=JSON.parse(localStorage.getItem("Products"))||[]
+
+function Product(n,c,i,p,g,s){
+this.name=n;
+this.Category=c;
+this.ImageUrl=i;
+this.price=p;
+this.Gender=g;
+this.Sold=s;
+}
+
+document.querySelector("form").addEventListener("submit",Products)
+function Products(elem){
+event.preventDefault();
+
+let Name=document.querySelector("#name").value;
+
+let Category=document.querySelector("#category").value;
+
+let ImageUrl=document.querySelector("#image").value;
+
+let Price =document.querySelector("#price").value;
+
+let Gender=document.querySelector("#gender").value;
+
+let Sold=document.querySelector("#sold").value;
+
+let p1= new Product(Name,Category,ImageUrl,Price,Gender,Sold)
+productArr.push(p1);
+console.log(productArr)
+localStorage.setItem("Products",JSON.stringify(productArr))
+}
+</script>

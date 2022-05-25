@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Throw Dice</title>
+    <style>
+        #box{
+            margin:auto;
+            text-align:center;
+            margin-top: 250px;
+            font-size: 25px;
+        }
+       #container{
+           display:flex;
+           flex-wrap:wrap;
+           justify-content:center;
+           align-items: center;
+        }
+        .dice{
+            background-color: whitesmoke;
+            border:1px solid rgb(98, 53, 53);
+            padding: 10px;
+            margin:12px;
+            text-align: center;
+            font-size:28px;
+            border-radius:7px;
+            width:48px;
+            height:48px;            
+        }
+        #winner{
+            margin:auto;
+            width:250px;
+            height:100px;
+            text-align:center;
+            border:3px solid rgb(247, 11, 11);
+            text-align: center;
+        }
+        #roll{
+            background-color: aqua;
+            font-size: 15px;
+            padding: 2px 4px 2px 4px;
+            border: 3px solid rgb(0, 255, 170);
+            color: black;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <div id="winner"></div>
+        <div id="container">
+            <div class="dice" id="member-1"></div>
+            <div class="dice" id="member-2"></div>
+            <div class="dice" id="member-3"></div>
+        </div>
+        <button id="roll">ROLL THE DICE</button>
+
+    </div>
+</body>
+</html>
+<script>
+   
+        var button=document.querySelector("#roll");
+
+        function dice(){
+            var firstDice=document.getElementById("member-1");
+            var secondDice=document.getElementById("member-2");
+            var thirdDice=document.getElementById("member-3");
+            var winner=document.getElementById("winner");
+            winner.style.textAlign = "center"
+
+            var Member1=Math.floor(Math.random()*6)+1;
+            var Member2=Math.floor(Math.random()*6)+1;
+            var Member3=Math.floor(Math.random()*6)+1;
+
+            firstDice.innerHTML=Member1;
+            secondDice.innerHTML=Member2;
+            thirdDice.innerHTML=Member3;
+        
+            if(Member1<Member2 && Member2<Member3){
+                winner.innerHTML="Dice 3";
+                firstDice.style.backgroundColor="red";
+                secondDice.style.backgroundColor="yellow";
+                thirdDice.style.backgroundColor="green";
+            }
+            else if(Member2<Member3 && Member3<Member1){
+                winner.innerHTML="Dice 1";
+                firstDice.style.backgroundColor="green";
+                secondDice.style.backgroundColor="yellow";
+                thirdDice.style.backgroundColor="red";
+            }
+            else if(Member3<Member1 && Member1<Member2){
+                winner.innerHTML="Dice 2";
+                firstDice.style.backgroundColor="yellow";
+                secondDice.style.backgroundColor="green";
+                thirdDice.style.backgroundColor="red";
+            }
+            else if(Member2<Member1 && Member1<Member3){
+                winner.innerHTML="Dice 3";
+                firstDice.style.backgroundColor="yellow";
+                secondDice.style.backgroundColor="red";
+                thirdDice.style.backgroundColor="green";
+            }
+            else if(Member3<Member2 && Member2<Member1){
+                winner.innerHTML="Dice 1";
+                firstDice.style.backgroundColor="green";
+                secondDice.style.backgroundColor="yellow";
+                thirdDice.style.backgroundColor="red";
+            }
+            else if(Member1<Member3 && Member3<Member2){
+                winner.innerHTML="Dice 2";
+                firstDice.style.backgroundColor="red";
+                secondDice.style.backgroundColor="green";
+                thirdDice.style.backgroundColor="yellow";
+            }
+            else if(Member2<Member1 && Member1==Member3){
+                winner.innerHTML="Both Dice 1 & Dice 3";
+                firstDice.style.backgroundColor="blue";
+                secondDice.style.backgroundColor="red";
+                thirdDice.style.backgroundColor="blue";
+            }
+            else if(Member3<Member2 && Member2==Member1){
+                winner.innerHTML="Both Dice 1 & Dice 2";
+                firstDice.style.backgroundColor="blue";
+                secondDice.style.backgroundColor="blue";
+                thirdDice.style.backgroundColor="red";
+            }
+            else if(Member1<Member3 && Member3==Member2){
+                winner.innerHTML="Both Dice 2 & Dice 3";
+                firstDice.style.backgroundColor="red";
+                secondDice.style.backgroundColor="blue";
+                thirdDice.style.backgroundColor="blue";
+            }
+            else if(Member1<Member2 && Member2==Member3){
+                winner.innerHTML="Both Dice 2 & Dice 3";
+                firstDice.style.backgroundColor="red";
+                secondDice.style.backgroundColor="blue";
+                thirdDice.style.backgroundColor="blue";
+            }
+            else if(Member2<Member3 && Member3==Member1){
+                winner.innerHTML="Both Dice 1 & Dice 3";
+                firstDice.style.backgroundColor="blue";
+                secondDice.style.backgroundColor="red";
+                thirdDice.style.backgroundColor="blue";
+            }
+            else if(Member3<Member1 && Member1==Member2){
+                winner.innerHTML="Both Dice 1 & Dice 2";
+                firstDice.style.backgroundColor="blue";
+                secondDice.style.backgroundColor="blue";
+                thirdDice.style.backgroundColor="red";
+            }
+            else if(Member1==Member3 && Member3==Member2){
+                winner.innerHTML="All Dice Are Equal";
+                firstDice.style.backgroundColor="blue";
+                secondDice.style.backgroundColor="blue";
+                thirdDice.style.backgroundColor="blue";
+            }
+            else if(Member1==Member2 && Member2<Member3){
+                winner.innerHTML="Dice 3";
+                firstDice.style.backgroundColor="blue";
+                secondDice.style.backgroundColor="blue";
+                thirdDice.style.backgroundColor="green";
+            }
+            else if(Member2==Member3 && Member2<Member1){
+                winner.innerHTML="Dice 1 ";
+                firstDice.style.backgroundColor="green";
+                secondDice.style.backgroundColor="blue";
+                thirdDice.style.backgroundColor="blue";
+            }
+            else if(Member1==Member3 && Member1<Member2){
+                winner.innerHTML="Dice 2";
+                firstDice.style.backgroundColor="blue";
+                secondDice.style.backgroundColor="green";
+                thirdDice.style.backgroundColor="blue";
+            }
+        }
+        button.addEventListener("click",dice);
+
+</script>
